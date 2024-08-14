@@ -1,0 +1,34 @@
+4/ 💡 Move Language Basics:
+Here's an example of a simple Move module that defines a Coin struct and a mint function:
+
+module 0xCAFE::BasicCoin {
+    struct Coin has key {
+        value: u64,
+    }
+
+    public fun mint(account: signer, value: u64) {
+        move_to(&account, Coin { value })
+    }
+}
+
+
+5/ 🛠️ Creating a Move Package:
+To create a new Move package, use:
+
+move new <pkg_name>
+
+Then, build your package with:
+
+move build
+
+6/ 🧪 Testing in Move:
+Move supports unit tests similar to Rust. Here's a sample test for the mint function:
+#[test(account = @0xC0FFEE)]
+fun test_mint_10(account: signer) acquires Coin {
+    mint(account, 10);
+    assert!(borrow_global<Coin>(addr).value == 10, 0);
+}
+Run tests with:
+
+move test
+
